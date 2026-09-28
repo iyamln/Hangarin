@@ -25,6 +25,9 @@
                         Manage your daily tasks, deadlines,
                         statuses, categories, and priorities.
                     </p>
+                    <p class="fs-4 fw-bold">
+                        {{ task_count }} Tasks
+                    </p>
 
                     <a href="{% url 'task-list' %}" class="btn btn-dark">
                         View Tasks
@@ -46,6 +49,9 @@
                     <p class="card-text">
                         Break larger tasks into smaller,
                         manageable steps.
+                    </p>
+                    <p class="fs-4 fw-bold">
+                        {{ subtask_count }} SubTasks
                     </p>
 
                     <a href="{% url 'subtask-list' %}" class="btn btn-dark">
@@ -69,6 +75,9 @@
                         Create notes connected to your
                         tasks.
                     </p>
+                    <p class="fs-4 fw-bold">
+                        {{ note_count }} Notes
+                    </p>
 
                     <a href="{% url 'note-list' %}" class="btn btn-dark">
                         View Notes
@@ -91,6 +100,9 @@
                         Organize tasks into Work, School,
                         Personal, Finance, and Projects.
                     </p>
+                    <p class="fs-4 fw-bold">
+                        {{ category_count }} Categories
+                    </p>
 
                     <a href="{% url 'category-list' %}" class="btn btn-dark">
                     Manage Categories
@@ -108,6 +120,9 @@
                     <p class="card-text">
                         Manage High, Medium, Low, Critical,
                         and Optional priorities.
+                    </p>
+                    <p class="fs-4 fw-bold">
+                        {{ priority_count }} Priorities
                     </p>
 
                     <a href="{% url 'priority-list' %}" class="btn btn-dark">

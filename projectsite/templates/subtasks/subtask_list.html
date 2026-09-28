@@ -5,10 +5,11 @@
 {% block content %}
 <div class="container py-5">
 
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="fw-bold">SubTasks</h1>
-            <p class="text-muted">Break tasks into smaller steps.</p>
+            <p class="text-muted mb-0">Break tasks into smaller steps.</p>
         </div>
 
         <a href="{% url 'subtask-create' %}" class="btn btn-dark">
@@ -16,6 +17,26 @@
         </a>
     </div>
 
+    <!-- Search -->
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-10">
+            <input
+                type="text"
+                name="q"
+                value="{{ request.GET.q }}"
+                class="form-control"
+                placeholder="Search subtasks..."
+            >
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-dark w-100">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- SubTask Cards -->
     {% if subtasks %}
         <div class="row g-4">
             {% for subtask in subtasks %}
@@ -27,23 +48,27 @@
                                 {{ subtask.title }}
                             </h5>
 
-                            <p>
+                            <p class="mb-2">
                                 <strong>Parent Task:</strong>
                                 {{ subtask.parent_task }}
                             </p>
 
-                            <p>
+                            <p class="mb-3">
                                 <strong>Status:</strong>
                                 {{ subtask.status }}
                             </p>
 
-                            <a href="{% url 'subtask-update' subtask.pk %}"
-                               class="btn btn-outline-dark btn-sm">
+                            <a
+                                href="{% url 'subtask-update' subtask.pk %}"
+                                class="btn btn-outline-dark btn-sm"
+                            >
                                 Edit
                             </a>
 
-                            <a href="{% url 'subtask-delete' subtask.pk %}"
-                               class="btn btn-outline-danger btn-sm">
+                            <a
+                                href="{% url 'subtask-delete' subtask.pk %}"
+                                class="btn btn-outline-danger btn-sm"
+                            >
                                 Delete
                             </a>
 
@@ -52,6 +77,44 @@
                 </div>
             {% endfor %}
         </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}"
+                    >
+                        Previous
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}"
+                    >
+                        Next
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+        {% endif %}
+
     {% else %}
         <div class="alert alert-info">
             No subtasks found.

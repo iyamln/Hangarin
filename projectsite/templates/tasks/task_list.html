@@ -5,10 +5,11 @@
 {% block content %}
 <div class="container py-5">
 
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="fw-bold">Tasks</h1>
-            <p class="text-muted">Manage your Hangarin tasks.</p>
+            <p class="text-muted mb-0">Manage your Hangarin tasks.</p>
         </div>
 
         <a href="{% url 'task-create' %}" class="btn btn-dark">
@@ -16,15 +17,50 @@
         </a>
     </div>
 
+    <!-- Search and Sort -->
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-6">
+            <input
+                type="text"
+                name="q"
+                value="{{ request.GET.q }}"
+                class="form-control"
+                placeholder="Search tasks..."
+            >
+        </div>
+
+        <div class="col-md-4">
+            <select name="sort_by" class="form-select">
+                <option value="title"
+                    {% if request.GET.sort_by == "title" or not request.GET.sort_by %}selected{% endif %}>
+                    Sort by Title
+                </option>
+
+                <option value="deadline"
+                    {% if request.GET.sort_by == "deadline" %}selected{% endif %}>
+                    Sort by Deadline
+                </option>
+
+                <option value="status"
+                    {% if request.GET.sort_by == "status" %}selected{% endif %}>
+                    Sort by Status
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-dark w-100">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Tasks -->
     {% if tasks %}
         <div class="row g-4">
-
             {% for task in tasks %}
-
                 <div class="col-md-6 col-lg-4">
-
                     <div class="card h-100 shadow-sm">
-
                         <div class="card-body">
 
                             <h5 class="card-title">
@@ -70,21 +106,52 @@
                             </a>
 
                         </div>
-
                     </div>
-
                 </div>
-
             {% endfor %}
-
         </div>
 
-    {% else %}
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
 
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="?q={{ request.GET.q }}&sort_by={{ request.GET.sort_by }}&page={{ page_obj.previous_page_number }}"
+                    >
+                        Previous
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="?q={{ request.GET.q }}&sort_by={{ request.GET.sort_by }}&page={{ page_obj.next_page_number }}"
+                    >
+                        Next
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+        {% endif %}
+
+    {% else %}
         <div class="alert alert-info">
             No tasks found.
         </div>
-
     {% endif %}
 
 </div>
