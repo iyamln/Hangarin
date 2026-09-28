@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from hangarin.views import (
     HomePageView,
@@ -33,6 +33,11 @@ from hangarin.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    
+    path(
+        "accounts/", 
+        include("allauth.urls")),
 
     path("", HomePageView.as_view(), name="home"),
 
@@ -129,4 +134,5 @@ urlpatterns = [
         "priorities/<int:pk>/delete/", 
         PriorityDeleteView.as_view(), 
         name="priority-delete"),
+
 ]
