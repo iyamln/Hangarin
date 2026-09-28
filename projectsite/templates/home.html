@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Hangarin - Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="mb-5">
+        <h1 class="display-5 fw-bold">Hangarin Dashboard</h1>
+        <p class="lead">Task and To-Do Manager</p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Tasks</h3>
+                    <p class="card-text">
+                        Manage your daily tasks, deadlines, and priorities.
+                    </p>
+                    <a href="#" class="btn btn-dark">
+                        View Tasks
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Categories</h3>
+                    <p class="card-text">
+                        Organize your tasks into Work, School, Personal,
+                        Finance, and Projects.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Priorities</h3>
+                    <p class="card-text">
+                        Manage High, Medium, Low, Critical, and Optional
+                        priorities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
