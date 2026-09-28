@@ -1,52 +1,136 @@
 {% extends "base.html" %}
 
-{% block title %}Hangarin - Dashboard{% endblock %}
+{% block title %}Hangarin Dashboard{% endblock %}
 
 {% block content %}
 
 <div class="container py-5">
 
     <div class="mb-5">
-        <h1 class="display-5 fw-bold">Hangarin Dashboard</h1>
-        <p class="lead">Task and To-Do Manager</p>
+        <h1 class="display-4 fw-bold">Hangarin Dashboard</h1>
+        <p class="lead">
+            Task and To-Do Manager
+        </p>
     </div>
 
     <div class="row g-4">
 
-        <div class="col-md-4">
+        <!-- TASKS -->
+        <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title">Tasks</h3>
+                    <h2 class="card-title">Tasks</h2>
+
                     <p class="card-text">
-                        Manage your daily tasks, deadlines, and priorities.
+                        Manage your daily tasks, deadlines,
+                        statuses, categories, and priorities.
                     </p>
-                    <a href="#" class="btn btn-dark">
+
+                    <a href="{% url 'task-list' %}" class="btn btn-dark">
                         View Tasks
+                    </a>
+
+                    <a href="{% url 'task-create' %}" class="btn btn-outline-dark">
+                        Add Task
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <!-- SUBTASKS -->
+        <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title">Categories</h3>
+                    <h2 class="card-title">SubTasks</h2>
+
                     <p class="card-text">
-                        Organize your tasks into Work, School, Personal,
-                        Finance, and Projects.
+                        Break larger tasks into smaller,
+                        manageable steps.
                     </p>
+
+                    <a href="{% url 'subtask-list' %}" class="btn btn-dark">
+                        View SubTasks
+                    </a>
+
+                    <a href="{% url 'subtask-create' %}" class="btn btn-outline-dark">
+                        Add SubTask
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <!-- NOTES -->
+        <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title">Priorities</h3>
+                    <h2 class="card-title">Notes</h2>
+
                     <p class="card-text">
-                        Manage High, Medium, Low, Critical, and Optional
-                        priorities.
+                        Create notes connected to your
+                        tasks.
                     </p>
+
+                    <a href="{% url 'note-list' %}" class="btn btn-dark">
+                        View Notes
+                    </a>
+
+                    <a href="{% url 'note-create' %}" class="btn btn-outline-dark">
+                        Add Note
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Categories</h2>
+
+                    <p class="card-text">
+                        Organize tasks into Work, School,
+                        Personal, Finance, and Projects.
+                    </p>
+
+                    <a href="{% url 'category-list' %}" class="btn btn-dark">
+                    Manage Categories
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRIORITIES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Priorities</h2>
+
+                    <p class="card-text">
+                        Manage High, Medium, Low, Critical,
+                        and Optional priorities.
+                    </p>
+
+                    <a href="{% url 'priority-list' %}" class="btn btn-dark">
+                        Manage Priorities
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Administration</h2>
+
+                    <p class="card-text">
+                        Manage all Hangarin data through
+                        the Django administration panel.
+                    </p>
+
+                    <a href="/admin/" class="btn btn-dark">
+                        Open Admin
+                    </a>
                 </div>
             </div>
         </div>

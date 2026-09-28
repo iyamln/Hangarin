@@ -1,5 +1,5 @@
 from django import forms
-from .models import Task
+from .models import Task, SubTask, Note, Category, Priority
 
 
 class TaskForm(forms.ModelForm):
@@ -18,3 +18,38 @@ class TaskForm(forms.ModelForm):
                 attrs={"type": "datetime-local"}
             ),
         }
+
+
+class SubTaskForm(forms.ModelForm):
+    class Meta:
+        model = SubTask
+        fields = [
+            "parent_task",
+            "title",
+            "status",
+        ]
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = [
+            "task",
+            "content",
+        ]
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = [
+            "name",
+        ]
+
+
+class PriorityForm(forms.ModelForm):
+    class Meta:
+        model = Priority
+        fields = [
+            "name",
+        ]

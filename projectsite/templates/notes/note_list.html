@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Notes - Hangarin{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Notes</h1>
+            <p class="text-muted">Keep notes connected to your tasks.</p>
+        </div>
+
+        <a href="{% url 'note-create' %}" class="btn btn-dark">
+            Add Note
+        </a>
+    </div>
+
+    {% if notes %}
+
+        <div class="row g-4">
+
+            {% for note in notes %}
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                {{ note.task }}
+                            </h5>
+
+                            <p class="card-text">
+                                {{ note.content }}
+                            </p>
+
+                            <p class="text-muted">
+                                Created: {{ note.created_at }}
+                            </p>
+
+                            <a
+                                href="{% url 'note-update' note.pk %}"
+                                class="btn btn-outline-dark btn-sm"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'note-delete' note.pk %}"
+                                class="btn btn-outline-danger btn-sm"
+                            >
+                                Delete
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info">
+            No notes found.
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}
