@@ -16,13 +16,16 @@ from .forms import (
     CategoryForm,
     PriorityForm,
 )
-
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # =========================
 # DASHBOARD
 # =========================
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
+    login_url = "/accounts/login/"
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
@@ -34,8 +37,23 @@ class HomePageView(TemplateView):
         context["category_count"] = Category.objects.count()
         context["priority_count"] = Priority.objects.count()
 
-        return context
+        context["pending_count"] = Task.objects.filter(
+            status="Pending"
+        ).count()
 
+        context["in_progress_count"] = Task.objects.filter(
+            status="In Progress"
+        ).count()
+
+        context["completed_count"] = Task.objects.filter(
+            status="Completed"
+        ).count()
+
+        context["recent_tasks"] = Task.objects.order_by(
+            "-created_at"
+        )[:5]
+
+        return context
 
 # =========================
 # TASKS
@@ -266,3 +284,7 @@ class PriorityDeleteView(DeleteView):
     form_class = PriorityForm
     template_name = "priorities/priority_confirm_delete.html"
     success_url = reverse_lazy("priority-list")
+
+def custom_logout(request):
+    logout(request)
+    return redirect("account_login")

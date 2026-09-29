@@ -3,6 +3,8 @@ from django.urls import path, include
 
 from hangarin.views import (
     HomePageView,
+    custom_logout,
+    
 
     TaskListView,
     TaskCreateView,
@@ -31,13 +33,20 @@ from hangarin.views import (
 )
 
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     
+
     path(
         "accounts/", 
         include("allauth.urls")),
+
+    path(
+        "logout/", 
+        custom_logout, 
+        name="custom-logout"),
 
     path("", HomePageView.as_view(), name="home"),
 
@@ -134,5 +143,6 @@ urlpatterns = [
         "priorities/<int:pk>/delete/", 
         PriorityDeleteView.as_view(), 
         name="priority-delete"),
+    
 
 ]

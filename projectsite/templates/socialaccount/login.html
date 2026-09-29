@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block title %}Continue with {{ provider.name }} - Hangarin{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow border-0">
+                <div class="card-body p-4 p-md-5 text-center">
+
+                    <!-- Provider Logo -->
+                    <div class="mb-4">
+                        <div
+                            class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light"
+                            style="width: 80px; height: 80px;"
+                        >
+                            {% if provider.id == "google" %}
+                                <i class="bi bi-google text-danger fs-1"></i>
+                            {% elif provider.id == "github" %}
+                                <i class="bi bi-github text-dark fs-1"></i>
+                            {% else %}
+                                <i class="bi bi-person-circle fs-1"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <h2 class="fw-bold mb-2">
+                        Continue with {{ provider.name }}
+                    </h2>
+
+                    <!-- Description -->
+                    <p class="text-muted mb-4">
+                        Sign in to Hangarin using your
+                        {{ provider.name }} account.
+                    </p>
+
+                    <!-- Continue -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn w-100 py-2
+                            {% if provider.id == 'google' %}
+                                btn-danger
+                            {% elif provider.id == 'github' %}
+                                btn-dark
+                            {% else %}
+                                btn-primary
+                            {% endif %}"
+                        >
+                            {% if provider.id == "google" %}
+                                <i class="bi bi-google me-2"></i>
+                            {% elif provider.id == "github" %}
+                                <i class="bi bi-github me-2"></i>
+                            {% endif %}
+
+                            Continue with {{ provider.name }}
+                        </button>
+                    </form>
+
+                    <!-- Cancel -->
+                    <a
+                        href="{% url 'account_login' %}"
+                        class="btn btn-outline-secondary w-100 py-2 mt-3"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
