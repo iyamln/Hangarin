@@ -37,11 +37,15 @@ from hangarin.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    
 
     path(
         "accounts/", 
         include("allauth.urls")),
+
+    path(
+        "", 
+        include("pwa.urls")),
+
 
     path(
         "logout/", 
